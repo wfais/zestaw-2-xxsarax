@@ -45,7 +45,7 @@ def main():
         try:
             data = requests.get(URL, headers=HEADERS, timeout=10).json()
         except Exception:
-            # timeout / brak JSON → spróbuj ponownie
+            # timeout / brak JSON → spróbuj ponownie.
             time.sleep(0.1)
             continue
         

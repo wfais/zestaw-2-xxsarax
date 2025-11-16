@@ -73,7 +73,7 @@ def arabskie_na_rzymskie(arabskie):
 
 if __name__ == '__main__':
     try:
-        # Przykłady konwersji rzymskiej na arabską
+        # Przykłady konwersji rzymskiej na arabską.
         rzymska = "MCMXCIV"
         print(f"Liczba rzymska {rzymska} to {rzymskie_na_arabskie(rzymska)} w arabskich.")
         

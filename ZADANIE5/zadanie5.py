@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sympy import symbols, sympify, lambdify
 
-# Funkcja rysująca wykres na podstawie eval()
+# Funkcja rysująca wykres na podstawie eval().
 def rysuj_wielomian(wejscie: str):
     try:
         expr_part, interval_part = wejscie.split(',')
@@ -79,7 +79,7 @@ def rysuj_wielomian_sympy(wejscie):
     return float( y__sympy[0]), float(y__sympy[-1])
 
 if __name__ == '__main__':
-    # Przykładowe wywołanie pierwszej funkcji
+    # Przykładowe wywołanie pierwszej funkcji.
     wejscie1 = "x**3 + 3*x + 1, -10 10"
     
     # Pierwszy wykres z eval

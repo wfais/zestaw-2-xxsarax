@@ -1,5 +1,5 @@
 def dodaj_element(wejscie):
-    # może warto zdefiniować zagnieżdżoną funkcję
+    # może warto zdefiniować zagnieżdżoną funkcję.
     najglebsze_listy = []
     max_glebokosc = -1
 
@@ -43,4 +43,4 @@ if __name__ == '__main__':
     ]
     output_list = dodaj_element(input_list)
     print(input_list)   
-    
+#
