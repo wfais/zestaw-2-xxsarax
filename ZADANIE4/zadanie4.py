@@ -19,8 +19,14 @@ def policz_fragment_pi(pocz: int, kon: int, krok: float, wyniki: list[float], in
     # Każdy wątek powinien:
     #   - obliczyć lokalną sumę dla przydzielonego przedziału,
     #   - wpisać wynik do wyniki[indeks].
+    lokalna_suma = 0.0
 
-    pass  # zaimplementuj obliczanie fragmentu całki dla danego wątku
+    for i in range(pocz, kon):
+        x = (i + 0.5) * krok         
+        lokalna_suma += 4.0 / (1.0 + x * x)
+
+    wyniki[indeks] = lokalna_suma
+    
 
 
 def main():
@@ -28,7 +34,6 @@ def main():
     print(f"Liczba rdzeni logicznych CPU: {os.cpu_count()}")
     print(f"LICZBA_KROKOW: {LICZBA_KROKOW:,}\n")
 
-    # Wstępne uruchomienie w celu stabilizacji środowiska wykonawczego
     krok = 1.0 / LICZBA_KROKOW
     wyniki = [0.0]
     w = threading.Thread(target=policz_fragment_pi, args=(0, LICZBA_KROKOW, krok, wyniki, 0))
@@ -44,6 +49,54 @@ def main():
     #   - pomiar czasu i wypisanie przyspieszenia.
     # ---------------------------------------------------------------
 
+    czasy = {}
+    baza_czas = None  # czas dla 1 wątku, do liczenia przyspieszenia
+
+    for n_w in LICZBA_WATKOW:
+        print(f"\n== Liczba watkow: {n_w} ==")
+
+        wyniki = [0.0] * n_w
+        watki = []
+
+        # podział pracy na przedziały [pocz, kon)
+        kroki_na_watek = LICZBA_KROKOW // n_w
+        reszta = LICZBA_KROKOW % n_w
+
+        start_idx = 0
+        for i in range(n_w):
+            ile = kroki_na_watek + (1 if i < reszta else 0)
+            pocz = start_idx
+            kon = pocz + ile
+            start_idx = kon
+
+            t = threading.Thread(target=policz_fragment_pi, args=(pocz, kon, krok, wyniki, i))
+            watki.append(t)
+
+        t0 = time.perf_counter()
+
+        # startujemy wszystkie wątki
+        for t in watki:
+            t.start()
+
+        # czekamy na wszystkie
+        for t in watki:
+            t.join()
+
+        t1 = time.perf_counter()
+        czas = t1 - t0
+        czasy[n_w] = czas
+
+        pi_przybl = krok * sum(wyniki)
+
+        if baza_czas is None:
+            baza_czas = czas
+            przysp = 1.0
+        else:
+            przysp = baza_czas / czas if czas > 0 else float("inf")
+
+        print(f"pi ~= {pi_przybl:.12f}")
+        print(f"Czas: {czas:.3f} s")
+        print(f"Przyspieszenie wzgledem 1 watku: {przysp:.2f}x")
 
 if __name__ == "__main__":
     main()
