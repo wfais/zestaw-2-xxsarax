@@ -25,7 +25,7 @@ def policz_fragment_pi(pocz: int, kon: int, krok: float, wyniki: list[float], in
         x = (i + 0.5) * krok         
         lokalna_suma += 4.0 / (1.0 + x * x)
 
-    wyniki[indeks] = lokalna_suma * krok
+    wyniki[indeks] = lokalna_suma
     
 
 
@@ -86,7 +86,7 @@ def main():
         czas = t1 - t0
         czasy[n_w] = czas
 
-        pi_przybl = sum(wyniki)
+        pi_przybl = krok * sum(wyniki)
 
         if baza_czas is None:
             baza_czas = czas
