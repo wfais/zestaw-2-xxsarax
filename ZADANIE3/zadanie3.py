@@ -66,11 +66,11 @@ def main():
        
     print()  
 
-    print(f"Pobrano: {pobrane}")
-    print(f"#Słowa:  {licznik_slow}")
-    print(f"Unikalne:  {len(cnt)}\n")
+    print(f"Pobrano wpisow: {pobrane}")
+    print(f"Słow (>=4) lacznie:  {licznik_slow}")
+    print(f"Unikalnych (>=4):  {len(cnt)}\n")
 
-    print("Najczęstsze 15 słów:")
+    print("Top 15 slow (>=4):")
     for slowo, ile in cnt.most_common(15):
         print(f"{slowo:15} {ile}")
 
