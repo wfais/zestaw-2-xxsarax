@@ -67,7 +67,7 @@ def main():
     print()  
 
     print(f"Pobrano wpisów: {pobrane}")
-    print(f"Słów (≥4) lącznie:  {licznik_slow}")
+    print(f"Słów (≥4) łącznie:  {licznik_slow}")
     print(f"Unikalnych (≥4):  {len(cnt)}\n")
 
     print("Top 15 słów (≥4):")
